@@ -19,7 +19,7 @@ namespace RestaurantGuide.Controllers
 
         // GET api/restaurants
         [HttpGet]
-        public ActionResult<IEnumerable<Restaurant>> Get(string name, string cuisine, string neighborhood)
+        public ActionResult<IEnumerable<Restaurant>> Get(string name, string cuisine, string neighborhood, string quadrant)
         {
             var query = _db.Restaurants.AsQueryable();
 
@@ -36,6 +36,11 @@ namespace RestaurantGuide.Controllers
             if (neighborhood != null)
             {
                 query = query.Where(entry => entry.Neighborhood.Contains(neighborhood));
+            }
+
+            if (quadrant != null)
+            {
+                query = query.Where(entry => entry.Quadrant.Contains(quadrant));
             }
 
             return query.ToList();
